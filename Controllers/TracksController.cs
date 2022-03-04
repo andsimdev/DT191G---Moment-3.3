@@ -30,10 +30,10 @@ namespace DT191G___Moment_3._3.Controllers
         }
 
         // GET: api/Tracks/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Track>> GetTrack(string id)
+        [HttpGet("{title}")]
+        public async Task<ActionResult<Track>> GetTrack(string title)
         {
-            var track = await _context.Tracks.FindAsync(id);
+            var track = await _context.Tracks.FindAsync(title);
 
             if (track == null)
             {
@@ -44,10 +44,10 @@ namespace DT191G___Moment_3._3.Controllers
         }
 
         // PUT: api/Tracks/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrack(string id, Track track)
+        [HttpPut("{title}")]
+        public async Task<IActionResult> PutTrack(string title, Track track)
         {
-            if (id != track.title)
+            if (title != track.title)
             {
                 return BadRequest();
             }
@@ -60,7 +60,7 @@ namespace DT191G___Moment_3._3.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrackExists(id))
+                if (!TrackExists(title))
                 {
                     return NotFound();
                 }
@@ -94,14 +94,14 @@ namespace DT191G___Moment_3._3.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTrack", new { id = track.title }, track);
+            return CreatedAtAction("GetTrack", new { title = track.title }, track);
         }
 
         // DELETE: api/Tracks/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTrack(string id)
+        [HttpDelete("{title}")]
+        public async Task<IActionResult> DeleteTrack(string title)
         {
-            var track = await _context.Tracks.FindAsync(id);
+            var track = await _context.Tracks.FindAsync(title);
             if (track == null)
             {
                 return NotFound();
@@ -113,9 +113,9 @@ namespace DT191G___Moment_3._3.Controllers
             return NoContent();
         }
 
-        private bool TrackExists(string id)
+        private bool TrackExists(string title)
         {
-            return _context.Tracks.Any(e => e.title == id);
+            return _context.Tracks.Any(e => e.title == title);
         }
     }
 }
